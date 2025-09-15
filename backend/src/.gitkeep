@@ -1,0 +1,10 @@
+# Backend Source Directory
+
+This directory will contain the main backend application source code.
+
+## Structure
+- `app.js` - Main application entry point
+- `server.js` - Server configuration and startup
+- `controllers/` - Request handlers and business logic
+- `services/` - Business logic services
+- `utils/` - Utility functions and helpers
