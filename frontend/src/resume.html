@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload your resume - OpportuNXT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="site-header">
+            <div class="brand">OpportuNXT</div>
+            <nav class="nav">
+                <a class="button button--ghost" href="index.html#about">About</a>
+            </nav>
+        </header>
+
+        <main class="form-page">
+            <section class="form-card">
+                <h1>Upload your PDF resume</h1>
+
+                <form id="resume-form">
+                    <label class="form-label">PDF file
+                        <input class="input" type="file" name="resume" accept="application/pdf">
+                    </label>
+
+                    <label class="form-label">Any other things you want
+                        <textarea class="textarea" name="notes" placeholder="Add any notes or preferences"></textarea>
+                    </label>
+
+                    <button class="button" type="submit">Submit</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('resume-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fileInput = form.querySelector('input[type="file"]');
+                if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                    alert('Please select a PDF file.');
+                    return;
+                }
+                const file = fileInput.files[0];
+                if (file.type !== 'application/pdf') {
+                    alert('Only PDF files are allowed.');
+                    return;
+                }
+                alert('Resume submitted!');
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+
