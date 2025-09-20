@@ -1,0 +1,9 @@
+# Frontend Source Directory
+
+This directory will contain the main frontend application source code.
+
+## Structure
+- `main.js` - Main application entry point
+- `app.js` - Application configuration and setup
+- `utils/` - Utility functions and helpers
+- `services/` - API service modules

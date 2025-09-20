@@ -1,0 +1,9 @@
+# ML Model Source Directory
+
+This directory will contain the machine learning model source code.
+
+## Structure
+- `recommendation_engine.py` - Main recommendation algorithm
+- `data_processor.py` - Data preprocessing and feature engineering
+- `model_trainer.py` - Model training scripts
+- `utils.py` - Utility functions for ML operations

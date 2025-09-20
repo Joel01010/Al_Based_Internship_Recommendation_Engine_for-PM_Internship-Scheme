@@ -1,0 +1,8 @@
+# API Documentation
+
+This directory contains API documentation files.
+
+Files to be added:
+- `endpoints.md` - API endpoint specifications
+- `authentication.md` - Authentication documentation
+- `data-models.md` - Data model specifications

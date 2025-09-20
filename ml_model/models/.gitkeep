@@ -1,0 +1,8 @@
+# ML Models Storage
+
+This directory will store trained machine learning models.
+
+Supported formats:
+- `.pkl` - Pickle files for scikit-learn models
+- `.joblib` - Joblib serialized models
+- `.json` - Model configuration files
