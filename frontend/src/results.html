@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Recommendations - OpportuNXT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <header class="site-header">
+            <div class="brand">OpportuNXT</div>
+            <nav class="nav">
+                <div class="language-dropdown">
+                    <button class="language-toggle" id="language-toggle">
+                        <span id="current-lang">English</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="language-menu" id="language-menu">
+                        <button class="language-option" data-lang="en">English</button>
+                        <button class="language-option" data-lang="hi">हिंदी</button>
+                        <button class="language-option" data-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+                <a class="button button--ghost" href="index.html" id="home-link">Home</a>
+            </nav>
+        </header>
+
+        <main class="results-page">
+            <div class="results-container">
+                <!-- Filter Sidebar -->
+                <div class="filter-sidebar">
+                    <div class="filter-header">
+                        <h3 data-en="Filters" data-hi="फिल्टर" data-ta="வடிகட்டிகள்">Filters</h3>
+                        <button class="clear-filters" id="clear-filters" data-en="Clear All" data-hi="सभी साफ़ करें" data-ta="அனைத்தையும் அழிக்கவும்">Clear All</button>
+                    </div>
+                    
+                    <!-- Salary Filter -->
+                    <div class="filter-section">
+                        <h4 data-en="Salary Range" data-hi="वेतन सीमा" data-ta="சம்பள வரம்பு">Salary Range</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="0-10000" class="salary-filter">
+                                <span>₹0 - ₹10,000</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="10000-15000" class="salary-filter">
+                                <span>₹10,000 - ₹15,000</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="15000-20000" class="salary-filter">
+                                <span>₹15,000 - ₹20,000</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="20000+" class="salary-filter">
+                                <span>₹20,000+</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Filter -->
+                    <div class="filter-section">
+                        <h4 data-en="Location" data-hi="स्थान" data-ta="இடம்">Location</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="mumbai" class="location-filter">
+                                <span>Mumbai</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="bangalore" class="location-filter">
+                                <span>Bangalore</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="delhi" class="location-filter">
+                                <span>Delhi</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="hyderabad" class="location-filter">
+                                <span>Hyderabad</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="pune" class="location-filter">
+                                <span>Pune</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="chennai" class="location-filter">
+                                <span>Chennai</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results Content -->
+                <div class="results-content">
+                    <h2 class="results-header" data-en="BASED ON YOUR DATA.. TOP RESULTS" data-hi="आपके डेटा के आधार पर.. शीर्ष परिणाम" data-ta="உங்கள் தரவின் அடிப்படையில்.. சிறந்த முடிவுகள்">BASED ON YOUR DATA.. TOP RESULTS</h2>
+                
+                <!-- AI-Generated Internship Recommendations -->
+                <div class="ai-loading" id="ai-loading">
+                    <div class="loading-spinner"></div>
+                    <p data-en="AI is analyzing your profile and generating personalized recommendations..." data-hi="AI आपके प्रोफाइल का विश्लेषण कर रहा है और व्यक्तिगत सुझाव उत्पन्न कर रहा है..." data-ta="AI உங்கள் சுயவிவரத்தை பகுப்பாய்வு செய்து தனிப்பட்ட பரிந்துரைகளை உருவாக்குகிறது...">AI is analyzing your profile and generating personalized recommendations...</p>
+                </div>
+
+                <div class="internship-card" id="internship-card-1" style="display: none;" data-salary="15000" data-location="mumbai">
+                    <h3 class="card-title" data-en="AI Recommendation #1" data-hi="AI सुझाव #1" data-ta="AI பரிந்துரை #1">AI Recommendation #1</h3>
+                    
+                    <div class="internship-details">
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Internship Title:" data-hi="इंटर्नशिप शीर्षक:" data-ta="இன்டர்ன்ஷிப் தலைப்பு:">Internship Title:</span>
+                            <span class="detail-value" id="internship-title-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Company:" data-hi="कंपनी:" data-ta="நிறுவனம்:">Company:</span>
+                            <span class="detail-value" id="company-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Location:" data-hi="स्थान:" data-ta="இடம்:">Location:</span>
+                            <span class="detail-value" id="location-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Duration:" data-hi="अवधि:" data-ta="காலம்:">Duration:</span>
+                            <span class="detail-value" id="duration-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Stipend:" data-hi="वजीफा:" data-ta="ஊதியம்:">Stipend:</span>
+                            <span class="detail-value" id="stipend-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Skills Required:" data-hi="आवश्यक कौशल:" data-ta="தேவையான திறன்கள்:">Skills Required:</span>
+                            <span class="detail-value" id="skills-1">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label" data-en="Match Score:" data-hi="मैच स्कोर:" data-ta="பொருத்தம் மதிப்பெண்:">Match Score:</span>
+                            <span class="detail-value" id="match-score-1">Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <button class="apply-button" onclick="applyNow()" data-en="APPLY NOW" data-hi="अभी आवेदन करें" data-ta="இப்போது விண்ணப்பிக்கவும்">APPLY NOW</button>
+                </div>
+
+                <div class="internship-card" id="internship-card-2" style="display: none;" data-salary="12000" data-location="bangalore">
+                    <h3 class="card-title">AI Recommendation #2</h3>
+                    
+                    <div class="internship-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Internship Title:</span>
+                            <span class="detail-value" id="internship-title-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Company:</span>
+                            <span class="detail-value" id="company-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Location:</span>
+                            <span class="detail-value" id="location-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value" id="duration-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Stipend:</span>
+                            <span class="detail-value" id="stipend-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Skills Required:</span>
+                            <span class="detail-value" id="skills-2">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Match Score:</span>
+                            <span class="detail-value" id="match-score-2">Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <button class="apply-button" onclick="applyNow()">APPLY NOW</button>
+                </div>
+
+                <div class="internship-card" id="internship-card-3" style="display: none;" data-salary="10000" data-location="delhi">
+                    <h3 class="card-title">AI Recommendation #3</h3>
+                    
+                    <div class="internship-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Internship Title:</span>
+                            <span class="detail-value" id="internship-title-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Company:</span>
+                            <span class="detail-value" id="company-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Location:</span>
+                            <span class="detail-value" id="location-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value" id="duration-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Stipend:</span>
+                            <span class="detail-value" id="stipend-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Skills Required:</span>
+                            <span class="detail-value" id="skills-3">Loading...</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Match Score:</span>
+                            <span class="detail-value" id="match-score-3">Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <button class="apply-button" onclick="applyNow()">APPLY NOW</button>
+                </div>
+
+                <!-- Future Development Notice -->
+                <div class="future-notice">
+                    <h4>🚀 Future Development</h4>
+                    <p>This is a prototype interface. The AI recommendation engine will be implemented to:</p>
+                    <ul>
+                        <li>Analyze your profile/resume data</li>
+                        <li>Match skills with internship requirements</li>
+                        <li>Consider location preferences</li>
+                        <li>Generate personalized recommendations</li>
+                        <li>Provide match scores and reasoning</li>
+                    </ul>
+                </div>
+                </div> <!-- Close results-content -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function applyNow() {
+            // Redirect to PM Internship Scheme login page
+            window.open('https://pminternship.mca.gov.in/login/', '_blank');
+        }
+
+        // Simulate AI processing and show demo results
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('userProfile') || localStorage.getItem('userResume');
+            
+            // Initialize language functionality
+            initializeLanguage();
+            
+            // Show loading state for 3 seconds
+            setTimeout(() => {
+                // Hide loading spinner
+                document.getElementById('ai-loading').style.display = 'none';
+                
+                // Show demo recommendations (this will be replaced with real AI in future)
+                showDemoRecommendations();
+                
+                // Initialize filters
+                initializeFilters();
+            }, 3000);
+        });
+
+        function initializeLanguage() {
+            const languageToggle = document.getElementById('language-toggle');
+            const languageMenu = document.getElementById('language-menu');
+            const currentLang = document.getElementById('current-lang');
+            const languageOptions = document.querySelectorAll('.language-option');
+
+            // Toggle dropdown
+            languageToggle?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                languageMenu.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                languageMenu.classList.remove('active');
+            });
+
+            // Handle language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const selectedLang = option.dataset.lang;
+                    const selectedText = option.textContent;
+                    
+                    // Update current language display
+                    currentLang.textContent = selectedText;
+                    
+                    // Update all elements with language data
+                    updateLanguage(selectedLang);
+                    
+                    // Store selected language
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                    
+                    // Close dropdown
+                    languageMenu.classList.remove('active');
+                });
+            });
+
+            // Load saved language on page load
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+            updateLanguage(savedLang);
+            
+            // Update current language display
+            const savedLangText = languageOptions.find(opt => opt.dataset.lang === savedLang)?.textContent || 'English';
+            currentLang.textContent = savedLangText;
+        }
+
+        function updateLanguage(lang) {
+            // Update all elements with data attributes
+            const elements = document.querySelectorAll('[data-en], [data-hi], [data-ta]');
+            
+            elements.forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3') {
+                        element.innerHTML = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            });
+        }
+
+        function initializeFilters() {
+            const salaryFilters = document.querySelectorAll('.salary-filter');
+            const locationFilters = document.querySelectorAll('.location-filter');
+            const clearFiltersBtn = document.getElementById('clear-filters');
+
+            // Add event listeners to salary filters
+            salaryFilters.forEach(filter => {
+                filter.addEventListener('change', applyFilters);
+            });
+
+            // Add event listeners to location filters
+            locationFilters.forEach(filter => {
+                filter.addEventListener('change', applyFilters);
+            });
+
+            // Clear all filters
+            clearFiltersBtn.addEventListener('click', () => {
+                salaryFilters.forEach(filter => filter.checked = false);
+                locationFilters.forEach(filter => filter.checked = false);
+                applyFilters();
+            });
+        }
+
+        function applyFilters() {
+            const salaryFilters = document.querySelectorAll('.salary-filter:checked');
+            const locationFilters = document.querySelectorAll('.location-filter:checked');
+            const internshipCards = document.querySelectorAll('.internship-card');
+
+            // Get selected salary ranges
+            const selectedSalaries = Array.from(salaryFilters).map(filter => filter.value);
+            
+            // Get selected locations
+            const selectedLocations = Array.from(locationFilters).map(filter => filter.value);
+
+            internshipCards.forEach(card => {
+                let showCard = true;
+
+                // Check salary filter
+                if (selectedSalaries.length > 0) {
+                    const cardSalary = parseInt(card.dataset.salary);
+                    let salaryMatch = false;
+                    
+                    selectedSalaries.forEach(range => {
+                        if (range === '20000+') {
+                            if (cardSalary >= 20000) salaryMatch = true;
+                        } else {
+                            const [min, max] = range.split('-').map(Number);
+                            if (cardSalary >= min && cardSalary <= max) salaryMatch = true;
+                        }
+                    });
+                    
+                    if (!salaryMatch) showCard = false;
+                }
+
+                // Check location filter
+                if (selectedLocations.length > 0) {
+                    const cardLocation = card.dataset.location;
+                    if (!selectedLocations.includes(cardLocation)) {
+                        showCard = false;
+                    }
+                }
+
+                // Show or hide card
+                card.style.display = showCard ? 'block' : 'none';
+            });
+
+            // Update results count
+            updateResultsCount();
+        }
+
+        function updateResultsCount() {
+            const visibleCards = document.querySelectorAll('.internship-card[style*="block"]');
+            const resultsHeader = document.querySelector('.results-header');
+            
+            if (visibleCards.length === 0) {
+                resultsHeader.textContent = 'NO RESULTS FOUND';
+                resultsHeader.style.color = '#ef4444';
+            } else {
+                resultsHeader.textContent = `BASED ON YOUR DATA.. TOP RESULTS (${visibleCards.length} found)`;
+                resultsHeader.style.color = '#374151';
+            }
+        }
+
+        function showDemoRecommendations() {
+            // Demo data - will be replaced with AI-generated recommendations
+            const demoRecommendations = [
+                {
+                    title: "Software Development Intern",
+                    company: "TechCorp Solutions",
+                    location: "Mumbai, Maharashtra",
+                    duration: "6 months",
+                    stipend: "₹15,000/month",
+                    skills: "JavaScript, React, Node.js",
+                    matchScore: "92%"
+                },
+                {
+                    title: "Data Science Intern",
+                    company: "DataTech Innovations",
+                    location: "Bangalore, Karnataka",
+                    duration: "4 months",
+                    stipend: "₹12,000/month",
+                    skills: "Python, Machine Learning, SQL",
+                    matchScore: "87%"
+                },
+                {
+                    title: "Digital Marketing Intern",
+                    company: "Growth Marketing Co.",
+                    location: "Delhi, NCR",
+                    duration: "3 months",
+                    stipend: "₹10,000/month",
+                    skills: "Social Media, Content Creation, Analytics",
+                    matchScore: "78%"
+                }
+            ];
+
+            // Populate the cards with demo data
+            demoRecommendations.forEach((rec, index) => {
+                const cardId = `internship-card-${index + 1}`;
+                document.getElementById(cardId).style.display = 'block';
+                
+                document.getElementById(`internship-title-${index + 1}`).textContent = rec.title;
+                document.getElementById(`company-${index + 1}`).textContent = rec.company;
+                document.getElementById(`location-${index + 1}`).textContent = rec.location;
+                document.getElementById(`duration-${index + 1}`).textContent = rec.duration;
+                document.getElementById(`stipend-${index + 1}`).textContent = rec.stipend;
+                document.getElementById(`skills-${index + 1}`).textContent = rec.skills;
+                document.getElementById(`match-score-${index + 1}`).textContent = rec.matchScore;
+            });
+        }
+    </script>
+</body>
+</html>

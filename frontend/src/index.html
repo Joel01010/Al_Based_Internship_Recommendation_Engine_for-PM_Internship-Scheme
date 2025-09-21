@@ -14,29 +14,40 @@
         <header class="site-header">
             <div class="brand">OpportuNXT</div>
             <nav class="nav">
-                <a class="button button--ghost" href="#about">About</a>
+                <div class="language-dropdown">
+                    <button class="language-toggle" id="language-toggle">
+                        <span id="current-lang">English</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="language-menu" id="language-menu">
+                        <button class="language-option" data-lang="en">English</button>
+                        <button class="language-option" data-lang="hi">हिंदी</button>
+                        <button class="language-option" data-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+                <a class="button button--ghost" href="#about" id="about-link">About</a>
             </nav>
         </header>
 
         <main class="hero">
             <section class="hero__content">
-                <h1 class="hero__title">
+                <h1 class="hero__title" data-en="AI-Based Internship<br>Recommendation Engine<br>for PM Internship Scheme" data-hi="AI-आधारित इंटर्नशिप<br>सुझाव इंजन<br>PM इंटर्नशिप योजना के लिए" data-ta="AI-அடிப்படையிலான இன்டர்ன்ஷிப்<br>பரிந்துரை இயந்திரம்<br>PM இன்டர்ன்ஷிப் திட்டத்திற்கு">
                     AI-Based Internship<br>
                     Recommendation Engine<br>
                     for PM Internship Scheme
                 </h1>
-                <p class="hero__subtitle">Find jobs matching your internship</p>
+                <p class="hero__subtitle" data-en="Find jobs matching your internship" data-hi="अपनी इंटर्नशिप से मेल खाने वाली नौकरियां खोजें" data-ta="உங்கள் இன்டர்ன்ஷிப்புடன் பொருந்தும் வேலைகளைக் கண்டறியவும்">Find jobs matching your internship</p>
 
                 <div class="hero__actions">
-                    <button class="button" id="btn-profile">Enter your profile</button>
-                    <button class="button" id="btn-resume">Enter your pdf resume</button>
+                    <button class="button" id="btn-profile" data-en="Enter your profile" data-hi="अपना प्रोफाइल दर्ज करें" data-ta="உங்கள் சுயவிவரத்தை உள்ளிடவும்">Enter your profile</button>
+                    <button class="button" id="btn-resume" data-en="Enter your pdf resume" data-hi="अपना PDF रिज्यूमे दर्ज करें" data-ta="உங்கள் PDF விண்ணப்பத்தை உள்ளிடவும்">Enter your pdf resume</button>
                 </div>
             </section>
         </main>
 
         <section id="about" class="about">
-            <h2>About</h2>
-            <p>This is a demo landing page offering two choices to get started.</p>
+            <h2 data-en="About" data-hi="के बारे में" data-ta="பற்றி">About</h2>
+            <p data-en="This is a demo landing page offering two choices to get started." data-hi="यह एक डेमो लैंडिंग पेज है जो शुरू करने के लिए दो विकल्प प्रदान करता है।" data-ta="இது தொடங்குவதற்கு இரண்டு விருப்பங்களை வழங்கும் டெமோ லேண்டிங் பக்கம்.">This is a demo landing page offering two choices to get started.</p>
         </section>
     </div>
 

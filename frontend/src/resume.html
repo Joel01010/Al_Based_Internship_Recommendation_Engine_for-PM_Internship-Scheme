@@ -14,24 +14,37 @@
         <header class="site-header">
             <div class="brand">OpportuNXT</div>
             <nav class="nav">
-                <a class="button button--ghost" href="index.html#about">About</a>
+                <div class="language-dropdown">
+                    <button class="language-toggle" id="language-toggle">
+                        <span id="current-lang">English</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="language-menu" id="language-menu">
+                        <button class="language-option" data-lang="en">English</button>
+                        <button class="language-option" data-lang="hi">हिंदी</button>
+                        <button class="language-option" data-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+                <a class="button button--ghost" href="index.html" id="home-link">Home</a>
             </nav>
         </header>
 
         <main class="form-page">
             <section class="form-card">
-                <h1>Upload your PDF resume</h1>
+                <h1 data-en="Upload your PDF resume" data-hi="अपना PDF रिज्यूमे अपलोड करें" data-ta="உங்கள் PDF விண்ணப்பத்தை பதிவேற்றவும்">Upload your PDF resume</h1>
 
                 <form id="resume-form">
-                    <label class="form-label">PDF file
+                    <div class="form-group">
+                        <label class="form-label" data-en="PDF file" data-hi="PDF फ़ाइल" data-ta="PDF கோப்பு">PDF file</label>
                         <input class="input" type="file" name="resume" accept="application/pdf">
-                    </label>
+                    </div>
 
-                    <label class="form-label">Any other things you want
+                    <div class="form-group">
+                        <label class="form-label" data-en="Any other things you want" data-hi="कोई अन्य चीजें जो आप चाहते हैं" data-ta="நீங்கள் விரும்பும் வேறு எந்த விஷயங்களும்">Any other things you want</label>
                         <textarea class="textarea" name="notes" placeholder="Add any notes or preferences"></textarea>
-                    </label>
+                    </div>
 
-                    <button class="button" type="submit">Submit</button>
+                    <button class="button" type="submit" data-en="Submit" data-hi="जमा करें" data-ta="சமர்ப்பிக்கவும்">Submit</button>
                 </form>
             </section>
         </main>
@@ -44,7 +57,7 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const fileInput = form.querySelector('input[type="file"]');
-                if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                if (!fileInput || !fileInput.files || !fileInput.files.length === 0) {
                     alert('Please select a PDF file.');
                     return;
                 }
@@ -53,10 +66,87 @@
                     alert('Only PDF files are allowed.');
                     return;
                 }
-                alert('Resume submitted!');
+                
+                // Collect form data
+                const formData = new FormData(form);
+                const resumeData = {
+                    fileName: file.name,
+                    fileSize: file.size,
+                    fileType: file.type,
+                    notes: formData.get('notes'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Store in localStorage
+                localStorage.setItem('userResume', JSON.stringify(resumeData));
+                
+                // Redirect to results page
+                window.location.href = 'results.html';
             });
         }
+
+        // Language dropdown functionality
+        const languageToggle = document.getElementById('language-toggle');
+        const languageMenu = document.getElementById('language-menu');
+        const currentLang = document.getElementById('current-lang');
+        const languageOptions = document.querySelectorAll('.language-option');
+
+        // Toggle dropdown
+        languageToggle?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            languageMenu.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            languageMenu.classList.remove('active');
+        });
+
+        // Handle language selection
+        languageOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const selectedLang = option.dataset.lang;
+                const selectedText = option.textContent;
+                
+                // Update current language display
+                currentLang.textContent = selectedText;
+                
+                // Update all elements with language data
+                updateLanguage(selectedLang);
+                
+                // Store selected language
+                localStorage.setItem('selectedLanguage', selectedLang);
+                
+                // Close dropdown
+                languageMenu.classList.remove('active');
+            });
+        });
+
+        // Load saved language on page load
+        const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+        updateLanguage(savedLang);
+        
+        // Update current language display
+        const savedLangText = languageOptions.find(opt => opt.dataset.lang === savedLang)?.textContent || 'English';
+        currentLang.textContent = savedLangText;
     });
+
+    function updateLanguage(lang) {
+        // Update all elements with data attributes
+        const elements = document.querySelectorAll('[data-en], [data-hi], [data-ta]');
+        
+        elements.forEach(element => {
+            const text = element.getAttribute(`data-${lang}`);
+            if (text) {
+                if (element.tagName === 'H1' || element.tagName === 'H2') {
+                    element.innerHTML = text;
+                } else {
+                    element.textContent = text;
+                }
+            }
+        });
+    }
     </script>
 </body>
 </html>
