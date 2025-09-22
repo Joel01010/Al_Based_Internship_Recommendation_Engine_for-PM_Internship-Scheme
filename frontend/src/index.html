@@ -8,35 +8,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="i18n.js"></script>
 </head>
 <body>
     <div class="page">
         <header class="site-header">
             <div class="brand">OpportuNXT</div>
             <nav class="nav">
-                <a class="button button--ghost" href="#about">About</a>
+                <a class="button button--ghost" href="#about" data-i18n="nav_about">About</a>
             </nav>
         </header>
 
         <main class="hero">
             <section class="hero__content">
-                <h1 class="hero__title">
+                <h1 class="hero__title" data-i18n="hero_title" data-i18n-html>
                     AI-Based Internship<br>
                     Recommendation Engine<br>
                     for PM Internship Scheme
                 </h1>
-                <p class="hero__subtitle">Find jobs matching your internship</p>
+                <p class="hero__subtitle" data-i18n="hero_subtitle">Find jobs matching your internship</p>
 
                 <div class="hero__actions">
-                    <button class="button" id="btn-profile">Enter your profile</button>
-                    <button class="button" id="btn-resume">Enter your pdf resume</button>
+                    <button class="button" id="btn-profile" data-i18n="btn_profile">Enter your profile</button>
+                    <button class="button" id="btn-resume" data-i18n="btn_resume">Enter your pdf resume</button>
+                    <a class="button button--input-like" id="btn-chat" data-i18n="btn_chat" href="chat.html">Chat with AI</a>
                 </div>
             </section>
         </main>
 
         <section id="about" class="about">
-            <h2>About</h2>
-            <p>This is a demo landing page offering two choices to get started.</p>
+            <h2 data-i18n="about_heading">About</h2>
+            <p data-i18n="about_text">This is a demo landing page offering two choices to get started.</p>
         </section>
     </div>
 

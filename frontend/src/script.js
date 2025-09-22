@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeBtn?.addEventListener('click', () => {
         window.location.href = 'resume.html';
     });
+
+    // Chat button now uses direct href to chat.html, no JavaScript needed
 });
 
 
