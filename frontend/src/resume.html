@@ -8,30 +8,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="i18n.js"></script>
 </head>
 <body>
     <div class="page">
         <header class="site-header">
             <div class="brand">OpportuNXT</div>
             <nav class="nav">
-                <a class="button button--ghost" href="index.html#about">About</a>
+                <a class="button button--ghost" href="index.html#about" data-i18n="nav_about">About</a>
             </nav>
         </header>
 
         <main class="form-page">
             <section class="form-card">
-                <h1>Upload your PDF resume</h1>
+                <h1 data-i18n="resume_title">Upload your PDF resume</h1>
 
                 <form id="resume-form">
-                    <label class="form-label">PDF file
+                    <label class="form-label">
+                        <span data-i18n="label_pdf">PDF file</span>
                         <input class="input" type="file" name="resume" accept="application/pdf">
                     </label>
 
-                    <label class="form-label">Any other things you want
+                    <label class="form-label">
+                        <span data-i18n="label_notes">Any other things you want</span>
                         <textarea class="textarea" name="notes" placeholder="Add any notes or preferences"></textarea>
                     </label>
 
-                    <button class="button" type="submit">Submit</button>
+                    <button class="button" type="submit" data-i18n="btn_submit">Submit</button>
                 </form>
             </section>
         </main>

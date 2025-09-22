@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with AI - OpportuNXT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="i18n.js"></script>
+    <script src="ai-service.js"></script>
+</head>
+<body>
+    <div class="page">
+        <header class="site-header">
+            <div class="brand">OpportuNXT</div>
+            <nav class="nav">
+                <a class="button button--ghost" href="index.html" data-i18n="btn_home">Home</a>
+                <a class="button button--ghost" href="profile.html" data-i18n="btn_update_profile">Profile</a>
+            </nav>
+        </header>
+
+        <main class="chat-page">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h1 data-i18n="chat_title">Chat with AI</h1>
+                    <div class="chat-controls">
+                        <select id="model-select" class="input model-select">
+                            <option value="ollama">Ollama (Local)</option>
+                            <option value="openai">OpenAI GPT</option>
+                            <option value="chrome">Chrome AI</option>
+                        </select>
+                        <button id="clear-chat" class="button button--secondary" data-i18n="clear_chat">Clear Chat</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <div class="welcome-message">
+                        <div class="ai-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p data-i18n="welcome_message">Hello! I'm your AI assistant. I can help you with internship recommendations, career advice, or answer any questions you have. How can I assist you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <form id="chat-form" class="chat-form">
+                        <div class="input-group">
+                            <textarea 
+                                id="chat-input" 
+                                class="chat-textarea" 
+                                placeholder="Type your message here..." 
+                                data-i18n-placeholder="chat_placeholder"
+                                rows="1"
+                                maxlength="4000"
+                            ></textarea>
+                            <button type="submit" id="send-button" class="send-button" disabled>
+                                <span class="send-icon">➤</span>
+                                <span class="loading-icon" style="display: none;">⏳</span>
+                            </button>
+                        </div>
+                        <div class="input-footer">
+                            <div class="char-count">
+                                <span id="char-count">0</span>/4000
+                            </div>
+                            <div class="chat-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="web-search" />
+                                    <span data-i18n="enable_web_search">Enable web search</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>

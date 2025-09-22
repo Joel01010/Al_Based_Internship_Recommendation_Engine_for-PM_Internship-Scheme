@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recommendations - OpportuNXT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="i18n.js"></script>
+    <script src="ai-service.js"></script>
+</head>
+<body>
+    <div class="page">
+        <header class="site-header">
+            <div class="brand">OpportuNXT</div>
+            <nav class="nav">
+                <a class="button button--ghost" href="profile.html" data-i18n="btn_update_profile">Update Profile</a>
+                <a class="button button--ghost" href="index.html" data-i18n="btn_home">Home</a>
+            </nav>
+        </header>
+
+        <main class="recommendations-page">
+            <section class="recommendations-header">
+                <h1 data-i18n="reco_title">Your AI-Powered Internship Recommendations</h1>
+                <p class="recommendations-subtitle">
+                    <span data-i18n="reco_subtitle_prefix">Based on your profile, we found</span> <span id="recommendation-count">5</span> <span data-i18n="reco_subtitle_suffix">perfect matches for you!</span>
+                </p>
+                <div class="profile-summary" id="profile-summary">
+                    <!-- Profile summary will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <section class="recommendations-grid" id="recommendations-container">
+                <!-- Recommendations will be populated by JavaScript -->
+            </section>
+
+            <section class="recommendations-actions">
+                <div class="action-buttons">
+                    <button class="button button--secondary" onclick="window.location.href='profile.html'" data-i18n="btn_update_profile">Update Profile</button>
+                    <button class="button" onclick="generateNewRecommendations()" data-i18n="btn_get_new">Get New Recommendations</button>
+                </div>
+                
+                <div class="help-section">
+                    <h3 data-i18n="help_title">Need Help?</h3>
+                    <p> 
+                        <span data-i18n="about_text">This is a demo landing page offering two choices to get started.</span>
+                    </p>
+                    <ul>
+                        <li data-i18n="help_tip_1">Updating your skills or interests</li>
+                        <li data-i18n="help_tip_2">Changing your location preference</li>
+                        <li data-i18n="help_tip_3">Adding more details in additional preferences</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadRecommendations();
+        loadProfileSummary();
+        // Re-render dynamic content when language changes
+        document.addEventListener('i18n:changed', function() {
+            loadRecommendations();
+            loadProfileSummary();
+        });
+    });
+
+    function loadProfileSummary() {
+        const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+        const summaryContainer = document.getElementById('profile-summary');
+        
+        if (profile.fullName) {
+            summaryContainer.innerHTML = `
+                <div class="profile-card">
+                    <h3>Hello, ${profile.fullName}!</h3>
+                    <div class="profile-details">
+                        <span class="profile-tag">${profile.education || 'Education not specified'}</span>
+                        <span class="profile-tag">${profile.interests || 'Interests not specified'}</span>
+                        <span class="profile-tag">${profile.location || 'Location flexible'}</span>
+                        <span class="profile-tag">${profile.experience || 'Fresher'}</span>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    function loadRecommendations() {
+        const recommendations = JSON.parse(localStorage.getItem('recommendations') || '[]');
+        const container = document.getElementById('recommendations-container');
+        const countElement = document.getElementById('recommendation-count');
+        
+        if (recommendations.length === 0) {
+            container.innerHTML = `
+                <div class="no-recommendations">
+                    <h3>${window.i18n ? window.i18n.t('no_reco_title') : 'No recommendations found'}</h3>
+                    <p>${window.i18n ? window.i18n.t('no_reco_desc') : 'Please go back and update your profile to get personalized recommendations.'}</p>
+                    <button class="button" onclick="window.location.href='profile.html'">${window.i18n ? window.i18n.t('btn_update_profile') : 'Update Profile'}</button>
+                </div>
+            `;
+            return;
+        }
+
+        countElement.textContent = recommendations.length;
+        
+        container.innerHTML = recommendations.map(internship => `
+            <div class="recommendation-card" data-match-score="${internship.matchScore}">
+                <div class="card-header">
+                    <div class="match-score">
+                        <span class="score-value">${internship.matchScore}%</span>
+                        <span class="score-label">Match</span>
+                    </div>
+                    <div class="card-title">
+                        <h3>${internship.title}</h3>
+                        <p class="company">${internship.company}</p>
+                    </div>
+                </div>
+                
+                <div class="card-content">
+                    <div class="internship-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span>${internship.location}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">⏱️</span>
+                            <span>${internship.duration}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">💰</span>
+                            <span>${internship.stipend}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-section">
+                        <h4>${window.i18n ? window.i18n.t('required_skills') : 'Required Skills:'}</h4>
+                        <div class="skills-tags">
+                            ${internship.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="description">
+                        <p>${internship.description}</p>
+                    </div>
+                    
+                    <div class="match-reasons">
+                        <h4>${window.i18n ? window.i18n.t('why_match') : 'Why this matches you:'}</h4>
+                        <ul>
+                            ${internship.matchReasons.map(reason => `<li>${reason}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    ${internship.appliedFilters && internship.appliedFilters.length > 0 ? `
+                        <div class="applied-filters">
+                            <h4>${window.i18n ? window.i18n.t('applied_filters') : 'Applied Filters:'}</h4>
+                            <ul>
+                                ${internship.appliedFilters.map(filter => `<li>${filter}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="card-actions">
+                    <button class="button button--secondary" onclick="saveInternship(${internship.id})">${window.i18n ? window.i18n.t('save_later') : 'Save for Later'}</button>
+                    <button class="button" onclick="applyToInternship(${internship.id})">${window.i18n ? window.i18n.t('apply_now') : 'Apply Now'}</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async function generateNewRecommendations() {
+        const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+        if (!profile.fullName) {
+            alert('Please complete your profile first.');
+            window.location.href = 'profile.html';
+            return;
+        }
+
+        try {
+            const recommendations = await window.aiService.getRecommendations(profile);
+            localStorage.setItem('recommendations', JSON.stringify(recommendations));
+            loadRecommendations();
+        } catch (error) {
+            console.error('Error generating new recommendations:', error);
+            alert('Sorry, there was an error generating new recommendations. Please try again.');
+        }
+    }
+
+    function saveInternship(internshipId) {
+        // Save internship to local storage for later viewing
+        const savedInternships = JSON.parse(localStorage.getItem('savedInternships') || '[]');
+        if (!savedInternships.includes(internshipId)) {
+            savedInternships.push(internshipId);
+            localStorage.setItem('savedInternships', JSON.stringify(savedInternships));
+            alert('Internship saved for later!');
+        } else {
+            alert('This internship is already saved.');
+        }
+    }
+
+    function applyToInternship(internshipId) {
+        // In a real application, this would redirect to the application process
+        alert(`Redirecting to application process for internship ID: ${internshipId}`);
+        // For demo purposes, we'll just show a success message
+        setTimeout(() => {
+            alert('Application submitted successfully! You will receive a confirmation email shortly.');
+        }, 1000);
+    }
+    </script>
+</body>
+</html>

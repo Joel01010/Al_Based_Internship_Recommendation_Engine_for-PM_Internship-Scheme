@@ -8,42 +8,108 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="i18n.js"></script>
+    <script src="ai-service.js"></script>
 </head>
 <body>
     <div class="page">
         <header class="site-header">
             <div class="brand">OpportuNXT</div>
             <nav class="nav">
-                <a class="button button--ghost" href="index.html#about">About</a>
+                <a class="button button--ghost" href="index.html#about" data-i18n="nav_about">About</a>
             </nav>
         </header>
 
         <main class="form-page">
             <section class="form-card">
-                <h1>Enter your profile</h1>
+                <h1 data-i18n="profile_title">Enter your profile</h1>
 
                 <form id="profile-form">
-                    <label class="form-label">Education
-                        <input class="input" type="text" name="education" placeholder="college">
+                    <label class="form-label">
+                        <span data-i18n="label_full_name">Full Name *</span>
+                        <input class="input" type="text" name="fullName" placeholder="Enter your full name" required>
                     </label>
 
-                    <label class="form-label">Skills
-                        <input class="input" type="text" name="skills" placeholder="skills">
+                    <label class="form-label">
+                        <span data-i18n="label_education">Education *</span>
+                        <select class="input" name="education" required>
+                            <option value="">Select your education level</option>
+                            <option value="10th">10th Standard</option>
+                            <option value="12th">12th Standard</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="undergraduate">Undergraduate (Bachelor's)</option>
+                            <option value="postgraduate">Postgraduate (Master's)</option>
+                            <option value="phd">PhD</option>
+                        </select>
                     </label>
 
-                    <label class="form-label">Sector interests
-                        <input class="input" type="text" name="interests" placeholder="Interests">
+                    <label class="form-label">
+                        <span data-i18n="label_field">Field of Study</span>
+                        <input class="input" type="text" name="fieldOfStudy" placeholder="e.g., Computer Science, Commerce, Arts">
                     </label>
 
-                    <label class="form-label">Location
-                        <input class="input" type="text" name="location" placeholder="location">
+                    <label class="form-label">
+                        <span data-i18n="label_skills">Skills *</span>
+                        <input class="input" type="text" name="skills" placeholder="e.g., Programming, Communication, Data Analysis" required>
+                        <small class="form-help" data-i18n="skills_help">Separate multiple skills with commas</small>
                     </label>
 
-                    <label class="form-label">Any other criteria you want
-                        <textarea class="textarea" name="notes" placeholder="Enter other things you want to be considered"></textarea>
+                    <label class="form-label">
+                        <span data-i18n="label_interests">Sector Interests *</span>
+                        <select class="input" name="interests" required>
+                            <option value="">Select your interest area</option>
+                            <option value="technology">Technology & IT</option>
+                            <option value="marketing">Marketing & Sales</option>
+                            <option value="finance">Finance & Banking</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="education">Education</option>
+                            <option value="media">Media & Entertainment</option>
+                            <option value="government">Government & Public Service</option>
+                            <option value="nonprofit">Non-Profit & Social Work</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="other">Other</option>
+                        </select>
                     </label>
 
-                    <button class="button" type="submit">Submit</button>
+                    <label class="form-label">
+                        <span data-i18n="label_location">Preferred Location *</span>
+                        <select class="input" name="location" required>
+                            <option value="">Select preferred location</option>
+                            <option value="mumbai">Mumbai, Maharashtra</option>
+                            <option value="delhi">Delhi, NCR</option>
+                            <option value="bangalore">Bangalore, Karnataka</option>
+                            <option value="hyderabad">Hyderabad, Telangana</option>
+                            <option value="pune">Pune, Maharashtra</option>
+                            <option value="chennai">Chennai, Tamil Nadu</option>
+                            <option value="kolkata">Kolkata, West Bengal</option>
+                            <option value="ahmedabad">Ahmedabad, Gujarat</option>
+                            <option value="remote">Remote/Work from Home</option>
+                            <option value="any">Any Location</option>
+                        </select>
+                    </label>
+
+                    <label class="form-label">
+                        <span data-i18n="label_experience">Experience Level</span>
+                        <select class="input" name="experience">
+                            <option value="fresher">Fresher (No experience)</option>
+                            <option value="0-1">0-1 years</option>
+                            <option value="1-2">1-2 years</option>
+                            <option value="2+">2+ years</option>
+                        </select>
+                    </label>
+
+                    <label class="form-label">
+                        <span data-i18n="label_additional">Additional Preferences</span>
+                        <textarea class="textarea" name="notes" placeholder="Any specific requirements, preferred company size, work culture, etc."></textarea>
+                    </label>
+
+                    <div class="form-actions">
+                        <button class="button button--secondary" type="button" onclick="window.history.back()" data-i18n="btn_back">Back</button>
+                        <button class="button" type="submit" id="submit-btn">
+                            <span id="submit-text" data-i18n="btn_get_reco">Get AI Recommendations</span>
+                            <span id="loading-text" style="display: none;" data-i18n="loading_processing">Processing...</span>
+                        </button>
+                    </div>
                 </form>
             </section>
         </main>
@@ -51,11 +117,53 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('profile-form');
+        const form = document.getElementById('profile-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const loadingText = document.getElementById('loading-text');
+
         if (form) {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                alert('Profile submitted!');
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.style.display = 'none';
+                loadingText.style.display = 'inline';
+
+                try {
+                    // Collect form data
+                    const formData = new FormData(form);
+                    const profile = {
+                        fullName: formData.get('fullName'),
+                        education: formData.get('education'),
+                        fieldOfStudy: formData.get('fieldOfStudy'),
+                        skills: formData.get('skills'),
+                        interests: formData.get('interests'),
+                        location: formData.get('location'),
+                        experience: formData.get('experience'),
+                        notes: formData.get('notes')
+                    };
+
+                    // Store profile data for recommendations page
+                    localStorage.setItem('userProfile', JSON.stringify(profile));
+
+                    // Get AI recommendations
+                    const recommendations = await window.aiService.getRecommendations(profile);
+                    localStorage.setItem('recommendations', JSON.stringify(recommendations));
+
+                    // Redirect to recommendations page
+                    window.location.href = 'recommendations.html';
+
+                } catch (error) {
+                    console.error('Error processing profile:', error);
+                    alert('Sorry, there was an error processing your profile. Please try again.');
+                    
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitText.style.display = 'inline';
+                    loadingText.style.display = 'none';
+                }
             });
         }
     });
